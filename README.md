@@ -14,3 +14,12 @@ Async/await doesn't work as expected in host functions imported by the WASM modu
 6. The main thread then calls `Atomics.notify` to wake up the worker thread.
 7. The worker thread reads the result of the user interaction from the `SharedArrayBuffer`.
 8. The host function running in the worker thread returns with the result.
+
+## Limitations
+
+Only works in secure contexts that have the right CORS headers to isolate the origin.
+
+```javascript
+res.set('Cross-Origin-Opener-Policy', 'same-origin');
+res.set('Cross-Origin-Embedder-Policy', 'require-corp');
+```
